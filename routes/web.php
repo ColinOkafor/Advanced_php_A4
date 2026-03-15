@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\UserAuthController; // Added missing import
+use App\Http\Controllers\UserAuthController;
 
 // Root redirects to blog to be helpful
 Route::get('/', function () {
@@ -13,20 +13,28 @@ Route::get('/', function () {
 Route::get('/blog', [BlogController::class, 'index']);
 
 // Protected Routes (User MUST be logged in)
-// If they aren't, Laravel automatically redirects to the 'login' named route.
 Route::middleware(['auth'])->group(function () {
     Route::get('/manage', [BlogController::class, 'manage']);
-    Route::post('/publish', [BlogController::class, 'publish']);
+    
+    // The single route handling BOTH publish and save buttons
+    Route::post('/manage/process', [BlogController::class, 'processForm']);
+    
+    // Deleting published articles
     Route::delete('/delete/{id}', [BlogController::class, 'delete']);
-    Route::get('/logout', [UserAuthController::class, 'logout']); // Moved logout here
+    
+    // Logout
+    Route::get('/logout', [UserAuthController::class, 'logout']); 
+    
+    // Snapshot Routes (Moved inside auth so they are protected)
+    Route::get('/snapshot/load/{id}', [BlogController::class, 'loadSnapshot']);
+    Route::get('/snapshot/delete/{id}', [BlogController::class, 'deleteSnapshot']);
 });
 
 // Guest Routes (User MUST NOT be logged in)
-// If they are logged in, Laravel automatically redirects them away.
 Route::middleware(['guest'])->controller(UserAuthController::class)->group(function() 
 {
     Route::get("/register", "displayRegisterPage");
-    Route::get("/login", "displayLoginPage")->name("login"); // 'name' is required for the auth middleware redirect
+    Route::get("/login", "displayLoginPage")->name("login"); 
     Route::post("/attempt_register", "registerUser");
     Route::post("/attempt_login", "authenticate");
 });
