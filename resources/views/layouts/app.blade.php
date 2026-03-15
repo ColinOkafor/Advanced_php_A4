@@ -60,10 +60,17 @@
 
 <div style="text-align: center;">
     <nav style="display: flex; gap: 100px; justify-content: center; background-color: #7f97c8; padding:2%;">
-        <h4><a href="/" class="nav-link {{ request()->is('/') ? 'active' : '' }}">Blog</a></h4>
+        <h4><a href="/blog" class="nav-link {{ request()->is('blog') ? 'active' : '' }}">Blog</a></h4>
         <h4><a href="/manage" class="nav-link {{ request()->is('manage') ? 'active' : '' }}">Manage</a></h4>
-        <h4><a href="/login" class="nav-link {{ request()->is('login') ? 'active' : '' }}">Login</a></h4>
-        <h4><a href="/register" class="nav-link {{ request()->is('register') ? 'active' : '' }}">Register</a></h4>
+        
+        @guest
+            <h4><a href="/login" class="nav-link {{ request()->is('login') ? 'active' : '' }}">Login</a></h4>
+            <h4><a href="/register" class="nav-link {{ request()->is('register') ? 'active' : '' }}">Register</a></h4>
+        @endguest
+
+        @auth
+            <h4><a href="/logout" class="nav-link">Logout</a></h4>
+        @endauth
     </nav>
     <br/>
     <main class= "page-content">

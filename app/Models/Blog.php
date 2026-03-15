@@ -6,26 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Blog extends Model
 {
+    // Point this model to the exact table name from your migration
+    protected $table = 'blog_articles'; 
+
+    // Allow these fields to be saved to the database
+    protected $fillable = ['title', 'content', 'user_id'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
-    public function updateBlog($id)
-    {
-        $blog = Blog::find($id);
-        $blog->status = "All good";
-        $blog->save();
-
-        return $this->showBlogs();
-    }    
-    public function deleteBlog($id)
-    {
-        $blog = Blog::find($id);
-        $blog->delete();
-
-        return $this->showBlogs();
-    }   
-
 }
- 

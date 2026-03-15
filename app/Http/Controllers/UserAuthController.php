@@ -23,7 +23,7 @@ class UserAuthController extends Controller
         {
             $request->session()->regenerate();
 
-            return redirect()->intended("listbuilder");
+            return redirect()->intended("/manage");
         }
 
         return back()->withErrors([
