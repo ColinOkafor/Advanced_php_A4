@@ -49,31 +49,29 @@
 </head>
 
 <body>
+<header style="text-align: center">
+    <img style=" width: 1550px; height: 200px;"
+            src="{{ asset('images/blog_app_header.png') }}"
+            alt="an image"
+            height="250"
+            width="250"
+     />
+</header>
+
 <div style="text-align: center;">
-    <nav style="display: flex; gap: 100px; justify-content: center; background-color: #C8AD7F; padding:2%;">
+    <nav style="display: flex; gap: 100px; justify-content: center; background-color: #7f97c8; padding:2%;">
         <h4><a href="/" class="nav-link {{ request()->is('/') ? 'active' : '' }}">Blog</a></h4>
         <h4><a href="/manage" class="nav-link {{ request()->is('manage') ? 'active' : '' }}">Manage</a></h4>
         <h4><a href="/login" class="nav-link {{ request()->is('login') ? 'active' : '' }}">Login</a></h4>
         <h4><a href="/register" class="nav-link {{ request()->is('register') ? 'active' : '' }}">Register</a></h4>
     </nav>
     <br/>
-
-    <header>
-        <img style=" border-radius: 140px; box-shadow:  0 0 12px 3px rgba(231, 222, 161, 0.8);"
-            src="{{ asset('images/homepage_logo.png') }}"
-            alt="an image"
-            height="250"
-            width="250"
-        />
-    </header>
-    <br/>
-
     <main class= "page-content">
        @yield('content')
     </main>
         <br/>
 
-    <footer style=" background-color: #C8AD7F; padding:2%;">
+    <footer style=" background-color: #7f97c8;; padding:2%;">
        <h4> &#169; Colin okafor</h4>
     </footer>
 </div>
