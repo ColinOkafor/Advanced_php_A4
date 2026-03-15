@@ -1,25 +1,51 @@
 @extends('layouts.app')
 @section('title', 'Login')
 @section('content')
-    
-    <form action="/attempt_login" method="post">
-        @csrf 
-        <label for="email">Email: </label>
-        <input type="password" name="password" value="" /> <br /> <br />
-        <label for="password">Password: </label>
-        <input type="text" name="password" value="" /> <br /> <br />
-        <input type="submit" value="Login" />
-    </form>
+  <!-- Using Bootstrap 5 from https://getbootstrap.com/ -->
 
-    <br />
-    @if ($errors->any())
-    <div>
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+<div class="d-flex justify-content-center align-items-center" style="min-height: 50vh;">
+    <div class="card shadow" style="width: 500px;">
+        <div class="card-body">
+            <h3 class="text-center mb-3">Login</h3>
+
+            <form action="/attempt_login" method="post">
+                @csrf
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input 
+                        type="email" 
+                        class="form-control" 
+                        id="email" 
+                        name="email"
+                        value="{{ old('email') }}"
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="password" 
+                        name="password"
+                    >
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+
+            @if ($errors->any())
+                <div class="alert alert-danger mt-3">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
     </div>
-    @endif
+</div>
 @endsection
 

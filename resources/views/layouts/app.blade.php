@@ -50,7 +50,7 @@
 
 <body>
 <header style="text-align: center">
-    <img style=" width: 1550px; height: 200px;"
+    <img style=" width: 1550px; height: 300px;"
             src="{{ asset('images/blog_app_header.png') }}"
             alt="an image"
             height="250"
